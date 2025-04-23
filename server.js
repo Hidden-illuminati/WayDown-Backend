@@ -32,7 +32,7 @@ const server = http.createServer(app);
 // Socket.io setup with CORS
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://way-down-frontend.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -63,7 +63,7 @@ if (process.env.NODE_ENV !== "production") {
 // Middleware
 app.use(
   cors({
-    origin: "https://way-down-frontend.vercel.app/",
+    origin: "https://way-down-frontend.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
