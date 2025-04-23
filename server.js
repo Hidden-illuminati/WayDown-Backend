@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 
-
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
@@ -25,7 +24,7 @@ const errorRoute = require("./routes/errorRoute");
 const http = require("http");
 const { Server } = require("socket.io");
 const spotSocket = require("./sockets/spotSocket");
-const aiRoutes = require("./routes/aiRoutes"); 
+const aiRoutes = require("./routes/aiRoutes");
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
@@ -64,7 +63,7 @@ if (process.env.NODE_ENV !== "production") {
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://way-down-frontend.vercel.app/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -86,7 +85,9 @@ const generalLimiter = rateLimit({
   legacyHeaders: false,
   handler: (req, res) => {
     logger.warn(`Rate limit exceeded for ${req.ip} on ${req.url}`);
-    res.status(429).json({ error: "Too Many Requests: Please try again later" });
+    res
+      .status(429)
+      .json({ error: "Too Many Requests: Please try again later" });
   },
 });
 const strictLimiter = rateLimit({
@@ -97,7 +98,9 @@ const strictLimiter = rateLimit({
   legacyHeaders: false,
   handler: (req, res) => {
     logger.warn(`Strict rate limit exceeded for ${req.ip} on ${req.url}`);
-    res.status(429).json({ error: "Too Many Requests: Please try again later" });
+    res
+      .status(429)
+      .json({ error: "Too Many Requests: Please try again later" });
   },
 });
 // Rate limiting for all requests
@@ -130,7 +133,7 @@ console.log("userRoutes:", userRoutes);
 console.log("userRoutes file path:", require.resolve("./routes/usersRoute"));
 
 // Routes
-app.use("/api/auth",strictLimiter, authRoutes);
+app.use("/api/auth", strictLimiter, authRoutes);
 app.use("/api/spots", spotRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/community", communityRoutes);
