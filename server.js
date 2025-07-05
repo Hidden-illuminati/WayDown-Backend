@@ -63,7 +63,7 @@ if (process.env.NODE_ENV !== "production") {
 // Middleware
 app.use(
   cors({
-    origin: "https://way-down-frontend-sanjais-projects-8aaafd51.vercel.app",
+    origin: "https://way-down-frontend-nine.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
